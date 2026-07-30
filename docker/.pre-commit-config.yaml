@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: dcsort
+        name: Format Docker Compose files
+        entry: bash -c 'docker run --rm -v "$(pwd):/work" -w /work ghcr.io/tiagovla/dcsort:latest $@ && docker run --rm -v "$(pwd):/work" -w /work ghcr.io/google/yamlfmt:latest $@ ' --
+        language: system
+        files: '(^|/)(docker-compose|compose)(-[^/]+)?\.(yaml|yml)$'

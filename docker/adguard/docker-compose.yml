@@ -1,0 +1,24 @@
+services:
+  adguard:
+    container_name: adguard
+    image: adguard/adguardhome:latest
+    restart: unless-stopped
+    expose:
+      - 3000
+      - 80
+      - 443
+    volumes:
+      - work:/opt/adguardhome/work
+      - ./config:/opt/adguardhome/conf
+    networks:
+      proxy:
+        ipv4_address: 10.120.53.53
+      macvlan:
+        ipv4_address: 10.0.0.53
+networks:
+  macvlan:
+    external: true
+  proxy:
+    external: true
+volumes:
+  work:
